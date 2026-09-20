@@ -1,7 +1,8 @@
-# Enterprise Operations Platform
+# Lumina
 
-> A secure, scalable, event-driven platform for resource management, workflow automation, collaboration, reporting, and actionable operational insights.
+> A secure, scalable, event-driven enterprise operations platform for resource management, workflow automation, collaboration, reporting, notifications, and actionable operational insights.
 
+[![Status](https://img.shields.io/badge/status-under%20active%20development-orange)](#-project-status)
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen)](#)
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-green)](#)
 [![Next.js](https://img.shields.io/badge/Next.js-14%2B-black)](#)
@@ -9,13 +10,45 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16%2B-336791)](#)
 [![Redis](https://img.shields.io/badge/Redis-7.x-red)](#)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-ready-326CE5)](#)
-[![License](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE)
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE.md)
 
 ---
 
-## Overview
+## 🚧 Project Status
 
-Enterprise Operations Platform is a modern web application designed to centralize operational workflows, resource management, user administration, reporting, notifications, and auditability in a single system.
+**Status: Under Active Development**
+
+Lumina is an actively developed software engineering project focused on building a secure, scalable, and maintainable enterprise operations platform.
+
+The architecture, APIs, database schemas, UI, infrastructure, and documentation are still evolving.
+
+> **Development Notice:** Lumina is not currently considered production-ready. Features, APIs, database schemas, configuration, and architectural decisions may change before the first stable release.
+
+Current development areas include:
+
+- Frontend application
+- Backend microservices
+- Authentication and authorization
+- Multi-Factor Authentication (MFA)
+- Resource management
+- PostgreSQL data architecture
+- Redis caching and session management
+- Event-driven communication
+- Notifications
+- Reporting
+- Audit logging
+- Testing
+- CI/CD
+- Kubernetes deployment
+- Observability
+- Security hardening
+- Documentation
+
+---
+
+## 📖 Overview
+
+Lumina is a modern web platform designed to centralize operational workflows, resource management, user administration, reporting, notifications, and auditability within a unified system.
 
 The platform is designed around:
 
@@ -32,29 +65,42 @@ The platform is designed around:
 - Horizontal scalability
 - Enterprise-grade observability
 
-The system follows Domain-Driven Design (DDD) principles and uses an event-driven architecture to separate business domains and support independent service scaling.
+The system follows **Domain-Driven Design (DDD)** principles and uses an **event-driven architecture** to separate business domains and support independent service development and scaling.
 
 ---
 
-## ✨ Core Features
+# ✨ Core Features
 
-### 🔐 Authentication & Security
+## 🔐 Authentication & Security
 
-- User registration and email verification
+Lumina is designed with security as a core architectural requirement.
+
+Planned and implemented capabilities include:
+
+- User registration
+- Email verification
 - Secure login
 - TOTP-based Multi-Factor Authentication
-- Password reset workflow
+- Password reset workflows
 - Refresh-token rotation
 - Session management
-- Account lockout protection
+- Account protection
 - Role-Based Access Control
 - Permission-based authorization
 - Security audit logging
 - TLS 1.3
-- Encrypted sensitive data
+- Encryption at rest
 - Secure password hashing
+- Token revocation
+- Rate limiting
 
-### 📊 Dashboard
+---
+
+## 📊 Dashboard
+
+The dashboard provides a centralized operational overview.
+
+Planned capabilities include:
 
 - KPI overview
 - Date-range filtering
@@ -62,106 +108,26 @@ The system follows Domain-Driven Design (DDD) principles and uses an event-drive
 - Pending approvals
 - Recent audit activity
 - Resource utilization metrics
+- User activity
 - Real-time application statistics
 
-### 📁 Resource Management
-
-- Create and edit resources
-- Resource ownership
-- Team assignments
-- Status workflows
-- Draft / Review / Approved / Archived states
-- File attachments
-- Inline editing
-- Optimistic concurrency control
-- Resource audit timeline
-
-### 🔎 Global Search
-
-Search across:
-
-- Users
-- Resources
-- Documents
-- Projects
-- Other indexed entities
-
-The search architecture is designed for fast autocomplete and paginated results.
-
-### 🔔 Notifications
-
-Supports:
-
-- In-app notifications
-- Email notifications
-- Assignment notifications
-- Approval notifications
-- Security notifications
-- System notifications
-
-### 📈 Reporting
-
-- CSV exports
-- PDF exports
-- Asynchronous report generation
-- Report status tracking
-- Secure generated-file storage
-- Export audit logging
-
-### 👥 Administration
-
-Administrators can manage:
-
-- Users
-- Roles
-- Permissions
-- Account status
-- System configuration
-- Reporting
-- Audit logs
-
----
-
-# 🏗️ Architecture
-
-The platform uses a **microservices architecture** with an **event-driven communication model**.
+Example dashboard structure:
 
 ```text
-                         ┌──────────────────────┐
-                         │   Client Applications│
-                         │ Web / Mobile / Admin │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │     API Gateway      │
-                         │                      │
-                         │ Routing              │
-                         │ Rate Limiting        │
-                         │ Authentication       │
-                         │ TLS Termination      │
-                         └──────────┬───────────┘
-                                    │
-              ┌─────────────────────┼─────────────────────┐
-              │                     │                     │
-              ▼                     ▼                     ▼
-       ┌────────────┐        ┌────────────┐       ┌──────────────┐
-       │ Auth       │        │ User       │       │ Resource     │
-       │ Service    │        │ Service    │       │ Service      │
-       └─────┬──────┘        └─────┬──────┘       └──────┬───────┘
-             │                     │                     │
-             └─────────────────────┼─────────────────────┘
-                                   │
-                                   ▼
-                         ┌──────────────────────┐
-                         │     Event Broker     │
-                         │ Kafka / RabbitMQ     │
-                         └──────────┬───────────┘
-                                    │
-                    ┌───────────────┼────────────────┐
-                    │               │                │
-                    ▼               ▼                ▼
-             ┌────────────┐ ┌────────────┐ ┌────────────┐
-             │Notification│ │ Reporting  │ │   Audit    │
-             │  Service   │ │  Service   │ │  Service   │
-             └────────────┘ └────────────┘ └────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ Dashboard Overview                          [Date Range]    │
+├──────────────┬──────────────┬──────────────┬───────────────┤
+│ Total Users  │ Active       │ Resources    │ Usage         │
+│              │ Sessions     │              │               │
+├──────────────┴──────────────┴──────────────┴───────────────┤
+│                                                             │
+│              Operational Activity                           │
+│                                                             │
+├──────────────────────────────────────┬──────────────────────┤
+│                                      │ Recent Audit Activity│
+│             Activity Chart           │                      │
+│                                      │                      │
+├──────────────────────────────────────┴──────────────────────┤
+│ Pending Approvals                                           │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
